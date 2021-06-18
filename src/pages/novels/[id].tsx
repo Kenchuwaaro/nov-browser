@@ -70,7 +70,7 @@ const NovelDetailView: React.FC<Props> = ({ item }: Props) => {
         </div>
     };
 
-    return <Layout title={item?.title} width={width}>
+    return <Layout title={item?.title}>
         {
             item?.chapters.map((chapter) => {
                 return <Chapter chapter={chapter} />

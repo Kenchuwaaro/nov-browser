@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { Novel } from 'interfaces';
 import { sampleNovelData } from 'utils/sample-data';
 import Layout from 'components/Layout';
-import List from 'components/List';
+import { BoxListItem, BoxList } from 'components/BoxList';
 
 type Props = {
     items: Novel[];
@@ -21,111 +21,34 @@ type NovelProps = {
 
 const NovelListView: React.FC<Props> = ({ items }: Props) => {
 
-    const width = 2000;
-
     const NovelView: React.FC<NovelProps> = ({ novel }: NovelProps) => {
-
-        const height = 200;
-        const imgWidth = 200;
-        const titleHeight = 60;
-        const titleWidth = 300;
-        const contentWidth = 1400;
-
-        const [fav, setFav] = useState(false);
-        const [later, setLater] = useState(false);
-
-        const useStyles = makeStyles({
-            root: {
-                filter: `drop-shadow(2px 2px 2px black)`,
-                width: '100%',
-                height: `${height}px`,
-                backgroundColor: '#008000',
-                margin: '10px',
-                '&:hover': {
-                    filter: `drop-shadow(4px 4px 4px black)`
-                }
-            },
-            content: {
-                width: `${contentWidth}px`
-            },
-            head: {
-            },
-            button: {
-                width: '200px'
-            },
-            title: {
-                width: `${titleWidth}px`,
-                height: `${titleHeight}px`,
-                padding: '0px 30px',
-                fontSize: '3em',
-                overflowX: 'hidden'
-            },
-            synopsis: {
-                width: `${titleWidth}px`,
-                padding: '10px 30px',
-                overflowY: 'hidden'
-            },
-            author: {
-                padding: '10px 40px'
-            },
-            img: {
-                width: `${imgWidth}px`,
-                height: `${height}px`,
-            }
-        });
-
-
-        const classes = useStyles();
-
-        return <Grid item direction="column" className={classes.root}>
-            <Link href='/novels/[id]' as={`/novels/${novel.id}`}>
+        return <BoxListItem id={novel.id} href='novels/[id]' as={`novels/${novel.id}`} boxSize="small">
+            <Grid container item direction="column" justify="center">
+                <h1>
+                    {novel.title}
+                </h1>
                 <div>
-                    <Grid container direction="row" justify="flex-start">
-                        <Grid item className={classes.img}>
-                            画像
-                        </Grid>
-                        <Grid item container direction="column" className={classes.content}>
-
-                            {/* head  */}
-                            <Grid item container direction="row" justify="space-between" className={classes.head}>
-                                <Grid item className={classes.title}>
-                                    <div>
-                                        {novel.title}
-                                    </div>
-                                </Grid>
-                                <Grid item container direction="row" justify="flex-end" className={classes.button}>
-                                    <IconButton>
-                                        <Favorite />
-                                    </IconButton>
-                                    <IconButton>
-                                        <Save />
-                                    </IconButton>
-                                </Grid>
-                            </Grid>
-
-                            {/* author */}
-                            <div className={classes.author}>
-                                著：才賀比孫一
-                            </div>
-
-                            {/* synopsis */}
-                            <Grid item className={classes.synopsis}>
-                                {novel.synopsis}
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                    著：作家名
                 </div>
-            </Link>
-        </Grid>
+            </Grid>
+
+            <Grid container item direction="row" justify="flex-end">
+                <IconButton>
+                    <Save />
+                </IconButton>
+                <IconButton>
+                    <Favorite />
+                </IconButton>
+            </Grid>
+        </BoxListItem>
     }
 
-
-    return <Layout title="" width={width}>
-        <Grid container direction="column" justify='center'>
-            { items.map((item) => {
+    return <Layout title="">
+        <BoxList xs='100%' sm='100%' md='50%' lg='30%' height='auto'>
+            {items.map((item) => {
                 return <NovelView novel={item} />
             })}
-        </Grid>
+        </BoxList>
     </Layout>
 }
 

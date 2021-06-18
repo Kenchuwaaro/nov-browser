@@ -8,8 +8,6 @@ import { clear } from 'console';
 type Props = {
   children?: ReactNode;
   title?: string;
-  width?: number;
-  nav?: ReactNode;
 };
 
 type NavProps = {
@@ -21,7 +19,7 @@ type TitleProps = {
   title: string;
 }
 
-const Layout: React.FC<Props> = ({ children, nav = null, title = 'This is the default title', width = '800px' }: Props) => {
+const Layout: React.FC<Props> = ({ children, title = 'This is the default title' }: Props) => {
 
   const useStyles = makeStyles({
     root: {
@@ -51,13 +49,13 @@ const Layout: React.FC<Props> = ({ children, nav = null, title = 'This is the de
       float: 'left'
     },
     main: {
-      width: `${width-400}px`,
+      width: `auto`,
     },
     initFloat: {
       float: 'none'
     },
     body: {
-      width: width,
+      width: 'auto',
       margin: '0px auto'
     },
     foot: {
@@ -122,7 +120,6 @@ const Layout: React.FC<Props> = ({ children, nav = null, title = 'This is the de
 
     <div className={classes.body}>
       <div className={classes.sub}>
-        {nav}
       </div>
       <div className={classes.main}>
         {children}
