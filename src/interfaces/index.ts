@@ -8,3 +8,25 @@ export type User = {
   id: number;
   name: string;
 };
+
+export type Novel = {
+  id: number;
+  writerId: number;
+  fav: number;
+  view: number;
+  title: string;
+  image: string;
+  synopsis: string;
+  chapters: Chapter[];
+}
+
+export type Chapter = {
+  id: number;
+  title: string;
+  episodes: Episode[];
+}
+
+export type Episode = {
+  id: number;
+  title: string;
+}
