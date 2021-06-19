@@ -30,3 +30,8 @@ export type Episode = {
   id: number;
   title: string;
 }
+
+export type EpisodeData = {
+  head: Episode;
+  text: string;
+};

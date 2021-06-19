@@ -1,8 +1,5 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
-import { Grid, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Favorite, Save } from '@material-ui/icons';
-
 import Link from 'next/link';
 
 import { Chapter, Episode, Novel } from 'interfaces';
@@ -23,23 +20,20 @@ type EpisodeProps = {
     episode: Episode;
 };
 
-const NovelDetailView: React.FC<Props> = ({ item }: Props) => {
-
-    const width = 800;
+const StaticPropsDetail : React.FC<Props> = ({ item }: Props) => {
 
     const Episode: React.FC<EpisodeProps> = ({ episode }: EpisodeProps) => {
 
         const useStyles = makeStyles({
             root: {
-                margin: '10px',
-                padding: '0px 100px'
+                margin: '10px'
             }
         });
 
         const classes = useStyles();
 
         return <div className={classes.root}>
-            <Link href='episodes/[id]' as={`episodes/${episode.id}`}>
+            <Link href='/episodes/[id]' as={`/episodes/${episode.id}`}>
                 {episode.title}
             </Link>
         </div>
@@ -113,4 +107,4 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 
-export default NovelDetailView;
+export default StaticPropsDetail;

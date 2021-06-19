@@ -1,4 +1,4 @@
-import { Novel, User, Episode, Chapter } from 'interfaces';
+import { Novel, User, EpisodeData } from 'interfaces';
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
@@ -412,5 +412,31 @@ export const sampleNovelData: Novel[] = [
         ],
       },
     ],
+  },
+];
+
+export const sampleEpisodeData: EpisodeData[] = [
+  {
+    head: {
+      id: 101,
+      title: '強襲',
+    },
+    text: '本文１',
+  },
+
+  {
+    head: {
+      id: 102,
+      title: '強襲',
+    },
+    text: '本文２',
+  },
+
+  {
+    head: {
+      id: 103,
+      title: '強襲',
+    },
+    text: '本文３',
   },
 ];
