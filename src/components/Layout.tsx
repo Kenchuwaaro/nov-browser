@@ -1,9 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Grid, Divider } from '@material-ui/core';
+import { Grid, IconButton, Divider, Input, MenuItem } from '@material-ui/core';
+import { Home, Notifications, Person, ExpandMore, Edit, Search } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
-import { clear } from 'console';
+import { useWindowDimensions } from './Hooks';
 
 type Props = {
   children?: ReactNode;
@@ -12,47 +13,33 @@ type Props = {
 
 type NavProps = {
   href: string;
-  children: ReactNode;
+  icon: ReactNode;
 };
 
-type TitleProps = {
-  title: string;
+type SearchProps = {
+  placeHolder: string;
+  onChange(text: string): void;
 }
 
 const Layout: React.FC<Props> = ({ children, title = 'This is the default title' }: Props) => {
 
+  const iconWidth = 60;
+
   const useStyles = makeStyles({
     root: {
-      margin: 'auto',
       width: '100%',
       height: '100%',
-      backgroundColor: '#ffffff'
+      backgroundColor: '#ffffff',
     },
     head: {
+      width: '100%',
       backgroundColor: '#ccffcc',
+      whiteSpace: 'nowrap',
       color: '#000000'
     },
-    nav: {
-      width: '150px',
-      margin: '10px',
-      padding: '0px 20px',
-      border: 'solid 1px #cccccc',
-      borderRadius: '5px',
-      textAlign: 'center'
-    },
-    title: {
-      textAlign: 'center',
-      fontSize: '3em'
-    },
-    sub: {
-      width: `${400}px`,
-      float: 'left'
-    },
-    main: {
-      width: `auto`,
-    },
-    initFloat: {
-      float: 'none'
+    headContentRoot: {
+      display: 'flex',
+      flexWrap: 'nowrap'
     },
     body: {
       width: 'auto',
@@ -61,27 +48,68 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
     foot: {
       margin: '0 0 0 auto',
       width: '400px'
+    },
+    menu: {
+      justifyContent: 'flex-end',
+      margin: '0px',
+      display: 'flex'
+    },
+    icon: {
+      width: `${iconWidth}px`
     }
   });
 
   const classes = useStyles();
 
-  const Navi: React.FC<NavProps> = ({ children, href }: NavProps) => {
-    return <div className={classes.nav}>
-      <Link href={href}>
-        <a>
-          <h3>
-            {children}
-          </h3>
-        </a>
-      </Link>
-    </div>
+  const Navi: React.FC<NavProps> = ({ icon, href }: NavProps) => {
+    return <Link href={href}>
+      <IconButton className={classes.icon}>
+        {icon}
+      </IconButton>
+    </Link>
   }
 
-  const Title: React.FC<TitleProps> = ({ title }: TitleProps) => {
-    return <h1 className={classes.title}>
-      {title}
-    </h1>
+  const Search: React.FC<SearchProps> = ({ placeHolder, onChange }: SearchProps) => {
+
+    const useStyles = makeStyles((theme) => {
+
+      const margin = theme.spacing(2);
+
+      return {
+        root: {
+          backgroundColor: '#eeeeee',
+          borderRadius: '10px',
+          color: 'inherit',
+          minWidth: `200px`,
+          width: `calc(100vw - ${iconWidth * 5 + margin * 2}px)`,
+          margin: margin
+        },
+        diviber: {
+          width: '2px'
+        },
+        inputRoot: {
+          color: 'inherit',
+          width: `100%`
+        },
+        inputInput: {
+          padding: theme.spacing(1),
+        },
+      }
+    });
+
+    const classes = useStyles();
+
+    return <div className={classes.root}>
+      <Input
+        placeholder="Search…"
+        disableUnderline
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        onChange={(event) => onChange(event.target.value)} />
+    
+    </div>
   }
 
   return <div className={classes.root}>
@@ -91,49 +119,29 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
       <meta charSet='utf-8' />
       <meta name='viewport' content='initial-scale=1.0, width=device-width' />
     </Head>
+
     <header className={classes.head}>
 
-      <nav>
-        <Grid container justify="space-between">
-          <Grid container item direction="row" justify="flex-end">
-            <Navi href='/'>
-              Home
-            </Navi>
-            <Navi href='/about'>
-              About
-            </Navi>
-            <Navi href='/users'>
-              Users List
-            </Navi>
-            <Navi href='/api/users'>
-              Users API
-            </Navi>
-          </Grid>
-        </Grid>
+      <div className={classes.headContentRoot}>
 
-      </nav>
+        <Navi href='/' icon={<Home />} />
+
+        <Search placeHolder="search..." onChange={(text: string) => { console.log(text) }} />
+
+        <nav className={classes.menu}>
+          <Navi href='/' icon={<Notifications />} />
+          <Navi href='/' icon={<Edit />} />
+          <Navi href='/' icon={<Person />} />
+          <Navi href='/' icon={<ExpandMore />} />
+        </nav>
+
+      </div>
 
     </header>
 
-
-    <Title title={title} />
-
     <div className={classes.body}>
-      <div className={classes.sub}>
-      </div>
-      <div className={classes.main}>
-        {children}
-      </div>
+      {children}
     </div>
-
-    {/* フロート初期化 */}
-    <div className={classes.initFloat}></div>
-
-    <Divider />
-
-    <footer className={classes.foot}>
-      <span>I'm here to stay (Footer)</span>
-    </footer>
 
   </div>
 
