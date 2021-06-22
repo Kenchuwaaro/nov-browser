@@ -18,6 +18,7 @@ export type Novel = {
   image: string;
   synopsis: string;
   chapters: Chapter[];
+  favorite: boolean;
 }
 
 export type Chapter = {

@@ -92,11 +92,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {
         const id = params?.id;
-
-        console.log(id);
-
         const item = sampleNovelData.find((data) => data.id === Number(id));
-        console.log(item)
         // By returning { props: item }, the StaticPropsDetail component
         // will receive `item` as a prop at build time
         return Promise.resolve({ props: { item } });

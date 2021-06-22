@@ -17,6 +17,7 @@ export const sampleNovelData: Novel[] = [
     view: 10000,
     image: '/',
     synopsis: 'ありふれあらすじです',
+    favorite: false,
     chapters: [
       {
         id: 1001,
@@ -118,6 +119,7 @@ export const sampleNovelData: Novel[] = [
     view: 20000,
     image: '/',
     synopsis: '天すらのあらすじです',
+    favorite: true,
     chapters: [
       {
         id: 1001,
@@ -219,6 +221,7 @@ export const sampleNovelData: Novel[] = [
     view: 30000,
     image: '/',
     synopsis: '幼女戦記あらすじです',
+    favorite: false,
     chapters: [
       {
         id: 1001,
@@ -320,6 +323,7 @@ export const sampleNovelData: Novel[] = [
     view: 40000,
     image: '/',
     synopsis: 'オーバーロードのあらすじです',
+    favorite: true,
     chapters: [
       {
         id: 1001,

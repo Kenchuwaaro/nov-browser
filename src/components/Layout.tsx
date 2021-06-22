@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
 import { Grid, IconButton, Divider, Input, MenuItem } from '@material-ui/core';
-import { Home, Notifications, Person, ExpandMore, Edit, Search } from '@material-ui/icons';
+import { Home, Notifications, Person, ExpandMore, Edit, Search as SearchIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useWindowDimensions } from './Hooks';
 
@@ -13,6 +13,7 @@ type Props = {
 
 type NavProps = {
   href: string;
+  as?: string;
   icon: ReactNode;
 };
 
@@ -24,6 +25,8 @@ type SearchProps = {
 const Layout: React.FC<Props> = ({ children, title = 'This is the default title' }: Props) => {
 
   const iconWidth = 60;
+
+  const [keyword,setKeyword] = useState('');
 
   const useStyles = makeStyles({
     root: {
@@ -61,8 +64,8 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
 
   const classes = useStyles();
 
-  const Navi: React.FC<NavProps> = ({ icon, href }: NavProps) => {
-    return <Link href={href}>
+  const Navi: React.FC<NavProps> = ({ icon, href , as }: NavProps) => {
+    return <Link href={href} as={as}>
       <IconButton className={classes.icon}>
         {icon}
       </IconButton>
@@ -81,7 +84,7 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
           borderRadius: '10px',
           color: 'inherit',
           minWidth: `200px`,
-          width: `calc(100vw - ${iconWidth * 5 + margin * 2}px)`,
+          width: `calc(100vw - ${iconWidth * 6 + margin * 2}px)`,
           margin: margin
         },
         diviber: {
@@ -108,7 +111,6 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
           input: classes.inputInput,
         }}
         onChange={(event) => onChange(event.target.value)} />
-    
     </div>
   }
 
@@ -128,7 +130,9 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
 
         <Search placeHolder="search..." onChange={(text: string) => { console.log(text) }} />
 
+
         <nav className={classes.menu}>
+          <Navi href='/novels/[keyword]' as = {`/search/${keyword}`} icon={<SearchIcon />} />
           <Navi href='/' icon={<Notifications />} />
           <Navi href='/' icon={<Edit />} />
           <Navi href='/' icon={<Person />} />
