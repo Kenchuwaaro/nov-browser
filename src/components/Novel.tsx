@@ -1,68 +1,107 @@
 
 
 import React, { useState } from 'react';
-import { Grid, IconButton } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Grid, IconButton, Collapse } from '@material-ui/core';
 import { Novel } from 'interfaces';
-import Link from 'next/link';
 import { Favorite, Save, FavoriteBorder } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
+import Link from 'next/link';
+import { ExpandMore } from '@material-ui/icons';
 
-type NovelProps = {
+
+type Props = {
     novel: Novel;
-    synopsis?: boolean;
 };
 
-const NovelView: React.FC<NovelProps> = ({ novel, synopsis = true }: NovelProps) => {
+const NovelView: React.FC<Props> = ({ novel }: Props) => {
 
-    const useStyles = makeStyles({
+    const [favorite, setFavorite] = useState(novel.favorite);
+
+    const handleFavarite = () => {
+        setFavorite(!favorite);
+    }
+
+    const useStyles = makeStyles(theme => ({
         root: {
+            backgroundColor: '#eeeeee',
             border: 'solid 1px #cccccc',
-            backgroundColor: '#ffffff',
-            borderRadius: '10px',
-            color: '#000000',
-            // backgroundImage: `url(${image})`,
+            margin: '10px',
+            borderRadius: '5px',
             filter: 'drop-shadow(2px 2px 2px black)',
             '&:hover': {
-                filter: 'drop-shadow(4px 4px 4px black)'
-            },
-            margin: '10px',
-        }
-    });
+                filter: 'drop-shadow(4px 4px 4px black)',
+            }
+        },
+        main: {
+            backgroundColor: '#ee0000',
+            overflow: 'hidden',
+        },
+        menu: {
+            backgroundColor: '#00ee00'
+        },
+        title: {
+            backgroundColor: '#0000ee'
+        },
+    }));
 
     const classes = useStyles();
 
-    return <Link href='novels/[id]' as={`novels/${novel.id}`}>
+    const [collapse, setCollapse] = useState(false);
 
-        <Grid item container direction="column" className={classes.root}
-            xs={12} sm={12} md={6} lg={6}>
+    return <Grid container item direction='row' className={classes.root}
+        alignItems='center' justify='center'
+        xs={12} sm={12} md={6} lg={6}>
 
-            <Grid container item direction="column" justify="center">
-                <h1>
-                    {novel.title}
-                </h1>
-                <div>
-                    著：作家名
-                </div>
+        <Grid item xs={12} className={classes.title}>
+            <Link href={`novels/[id]`} as={`novels/${novel.id}`}>
+
                 <React.Fragment>
-                    {
-                        synopsis ? <div>
-                            {novel.synopsis}
-                        </div> : null
-                    }
-                </React.Fragment>
-            </Grid>
 
+                    <h2>
+                        {novel.title}
+                    </h2>
+                    <div>
+                        著:作家名
+                    </div>
+                </React.Fragment>
+
+            </Link>
+        </Grid>
+
+        <Grid item container xs={12} className={classes.title}>
+            <Grid item xs={11}>
+                <div>
+                    あらすじ
+                </div>
+            </Grid>
+            <Grid item xs={1}>
+                <IconButton onClick={() => { setCollapse(!collapse) }}>
+                    <ExpandMore />
+                </IconButton>
+            </Grid>
+        </Grid>
+
+        <Grid item xs={12} className={classes.main}>
+            <Collapse in={collapse}>
+                <Link href={`novels/[id]`} as={`novels/${novel.id}`}>
+                    <div>
+                        {novel.synopsis}
+                    </div>
+                </Link>
+            </Collapse>
+        </Grid>
+
+        <Grid item xs={12} className={classes.menu}>
             <Grid container item direction="row" justify="flex-end">
-                <IconButton>
+                <IconButton >
                     <Save />
                 </IconButton>
-                <IconButton>
-                    {novel.favorite ? <Favorite /> : <FavoriteBorder />}
+                <IconButton onClick={handleFavarite}>
+                    {favorite ? <Favorite /> : <FavoriteBorder />}
                 </IconButton>
             </Grid>
-
         </Grid>
-    </Link>
+    </Grid >
 }
 
 export default NovelView;

@@ -1,4 +1,5 @@
 import React, { ReactNode, useState, useEffect, useCallback } from 'react';
+import { signIn, signOut, useSession } from "next-auth/client";
 import Link from 'next/link';
 import Head from 'next/head';
 import { Grid, IconButton, Divider, Input, MenuItem } from '@material-ui/core';
@@ -25,10 +26,9 @@ type SearchProps = {
 const Layout: React.FC<Props> = ({ children, title = 'This is the default title' }: Props) => {
 
   const iconWidth = 60;
+  const [session, loading] = useSession();
 
-  const [keyword,setKeyword] = useState('');
-
-  const useStyles = makeStyles({
+  const useStyles = makeStyles( theme => ({
     root: {
       width: '100%',
       height: '100%',
@@ -45,7 +45,6 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
       flexWrap: 'nowrap'
     },
     body: {
-      width: 'auto',
       margin: '0px auto'
     },
     foot: {
@@ -59,8 +58,33 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
     },
     icon: {
       width: `${iconWidth}px`
-    }
-  });
+    },
+    [theme.breakpoints.down('xs')] :{
+      body: {
+        width: '100%'
+      }
+    },
+    [theme.breakpoints.between('xs','sm')] :{
+      body: {
+        width: '100%'
+      }
+    },
+    [theme.breakpoints.between('sm','md')] :{
+      body: {
+        width: '100%'
+      }
+    },
+    [theme.breakpoints.between('md','lg')] :{
+      body: {
+        width: '100%'
+      }
+    },
+    [theme.breakpoints.up('lg')] :{
+      body: {
+        width: '100%'
+      }
+    },
+  }));
 
   const classes = useStyles();
 
@@ -96,7 +120,7 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
         },
         inputInput: {
           padding: theme.spacing(1),
-        },
+        }
       }
     });
 
@@ -132,7 +156,7 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
 
 
         <nav className={classes.menu}>
-          <Navi href='/novels/[keyword]' as = {`/search/${keyword}`} icon={<SearchIcon />} />
+          <Navi href='/search/' icon={<SearchIcon />} />
           <Navi href='/' icon={<Notifications />} />
           <Navi href='/' icon={<Edit />} />
           <Navi href='/' icon={<Person />} />
@@ -146,7 +170,7 @@ const Layout: React.FC<Props> = ({ children, title = 'This is the default title'
     <div className={classes.body}>
       {children}
     </div>
-
+    
   </div>
 
 }

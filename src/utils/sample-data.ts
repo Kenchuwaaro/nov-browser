@@ -1,4 +1,4 @@
-import { Novel, User, EpisodeData } from 'interfaces';
+import { Novel, User, EpisodeData, CommentRoom } from 'interfaces';
 
 /** Dummy user data. */
 export const sampleUserData: User[] = [
@@ -16,12 +16,13 @@ export const sampleNovelData: Novel[] = [
     fav: 1000,
     view: 10000,
     image: '/',
-    synopsis: 'ありふれあらすじです',
+    synopsis: 'ありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじですありふれあらすじです',
     favorite: false,
     chapters: [
       {
         id: 1001,
         title: '第一章',
+        number: 1,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -37,6 +38,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第二章',
+        number: 2,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -52,6 +54,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第三章',
+        number: 3,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -124,6 +127,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第一章',
+        number: 1,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -139,6 +143,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第二章',
+        number: 2,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -154,6 +159,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第三章',
+        number: 3,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -226,6 +232,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第一章',
+        number: 1,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -241,6 +248,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第二章',
+        number: 2,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -256,6 +264,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第三章',
+        number: 3,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -328,6 +337,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第一章',
+        number: 1,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -343,6 +353,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第二章',
+        number: 2,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -358,6 +369,7 @@ export const sampleNovelData: Novel[] = [
       {
         id: 1001,
         title: '第三章',
+        number: 3,
         episodes: [
           { id: 101, title: '第一話' },
           { id: 102, title: '第二話' },
@@ -442,5 +454,161 @@ export const sampleEpisodeData: EpisodeData[] = [
       title: '強襲',
     },
     text: '本文３',
+  },
+];
+
+export const sampleCommentData : CommentRoom[] = [
+  {
+    id: 101,
+    name: '名前',
+    comments: [
+      {
+        id: 201,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 103,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 104,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 105,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 106,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+    ]
+  },
+  {
+    id: 201,
+    name: '名前',
+    comments: [
+      {
+        id: 202,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 203,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 204,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 205,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 206,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+    ]
+  },
+  {
+    id: 301,
+    name: '名前',
+    comments: [
+      {
+        id: 302,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 303,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 304,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 405,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+      {
+        id: 406,
+        authorId: 1001,
+        authorName: '吹雪',
+        comment: 'すごく良いです',
+        good: true,
+        bad: false,
+        goodCount: 1001,
+      },
+    ]
   },
 ];

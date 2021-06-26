@@ -23,7 +23,9 @@ export type Novel = {
 
 export type Chapter = {
   id: number;
-  title: string;
+  number: number;
+  title?: string;
+  synopsis?: string;
   episodes: Episode[];
 }
 
@@ -36,3 +38,20 @@ export type EpisodeData = {
   head: Episode;
   text: string;
 };
+
+export type Comment = {
+  id: number;
+  comment: string;
+  authorId: number;
+  authorName: string;
+  good: boolean;
+  bad: boolean;
+  goodCount: number;
+  responses?:  Comment[];
+}
+
+export type CommentRoom =  {
+  id: number;
+  name: string;
+  comments: Comment[];
+}

@@ -6,68 +6,20 @@ import { Chapter, Episode, Novel } from 'interfaces';
 import { sampleNovelData } from 'utils/sample-data';
 
 import Layout from 'components/Layout';
+import ChapterView from 'components/Chapter';
+
 
 type Props = {
     item?: Novel;
     errors?: string;
 };
 
-type ChapterProps = {
-    chapter: Chapter;
-};
-
-type EpisodeProps = {
-    episode: Episode;
-};
 
 const StaticPropsDetail : React.FC<Props> = ({ item }: Props) => {
-
-    const Episode: React.FC<EpisodeProps> = ({ episode }: EpisodeProps) => {
-
-        const useStyles = makeStyles({
-            root: {
-                margin: '10px'
-            }
-        });
-
-        const classes = useStyles();
-
-        return <div className={classes.root}>
-            <Link href='/episodes/[id]' as={`/episodes/${episode.id}`}>
-                {episode.title}
-            </Link>
-        </div>
-    };
-
-    const Chapter: React.FC<ChapterProps> = ({ chapter }: ChapterProps) => {
-        
-        const useStyles = makeStyles({
-            root: {
-                margin: '10px',
-                padding: '0px 10px'
-            }
-        });
-
-        const classes = useStyles();
-
-        return <div className={classes.root}>
-            <h1>
-                {chapter.title}
-            </h1>
-            <div>
-                {
-                    chapter.episodes.map((episode) => {
-                        return < Episode episode={episode} />
-                    })
-                }
-            </div>
-        </div>
-    };
-
     return <Layout title={item?.title}>
         {
             item?.chapters.map((chapter) => {
-                return <Chapter chapter={chapter} />
+                return <ChapterView chapter={chapter} />
             })
         }
     </Layout>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Provider } from "next-auth/client";
 import { AppProps } from 'next/app';
 import { ThemeProvider as StyledComponentsThemeProvider } from 'styled-components';
 import { ThemeProvider as MaterialUIThemeProvider } from '@material-ui/core/styles';
@@ -15,14 +16,16 @@ const CustomApp = ({ Component, pageProps }: AppProps): JSX.Element => {
   }, []);
 
   return (
-    <StylesProvider injectFirst>
-      <MaterialUIThemeProvider theme={theme}>
-        <StyledComponentsThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-        </StyledComponentsThemeProvider>
-      </MaterialUIThemeProvider>
-    </StylesProvider>
+    <Provider session={pageProps.session}>
+      <StylesProvider injectFirst>
+        <MaterialUIThemeProvider theme={theme}>
+          <StyledComponentsThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+          </StyledComponentsThemeProvider>
+        </MaterialUIThemeProvider>
+      </StylesProvider>
+    </Provider>
   );
 };
 
